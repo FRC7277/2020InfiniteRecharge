@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -107,6 +108,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     driveTrain.tankDrive(joystick.getY(), joystick.getX());
+    SmartDashboard.putNumber("joystick x", joystick.getX());
+    SmartDashboard.putNumber("joystick y", joystick.getY());
+
   }
 
   @Override
