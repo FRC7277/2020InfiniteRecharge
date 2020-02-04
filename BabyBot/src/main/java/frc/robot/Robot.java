@@ -14,6 +14,9 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.smartdashboard.*;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -26,8 +29,8 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
   //creating the motor controllers so we can move
-  private PWMTalonSRX leftMotor=new PWMTalonSRX(0);
-  private PWMTalonSRX rightMotor=new PWMTalonSRX(1);
+  private WPI_TalonSRX leftMotor=new WPI_TalonSRX(1);
+  private WPI_TalonSRX rightMotor=new WPI_TalonSRX(2);
   //i dint know what this does but the examples do it so ya
   private DifferentialDrive driveTrain= new DifferentialDrive(leftMotor, rightMotor);
   // inputs
@@ -107,7 +110,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    driveTrain.tankDrive(joystick.getY(), joystick.getX());
+    double turn=joystick.getX();
+    double speed=joystick.getY();
+    double leftspeed=speed-turn;
+    double rightspeed=speed+turn;
+    driveTrain.tankDrive(leftspeed, rightspeed);
     SmartDashboard.putNumber("joystick x", joystick.getX());
     SmartDashboard.putNumber("joystick y", joystick.getY());
 
