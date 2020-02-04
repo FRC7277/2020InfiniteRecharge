@@ -110,10 +110,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    double turn=joystick.getX();
+    double turn=joystick.getX()/5;
     double speed=joystick.getY();
-    double leftspeed=speed-turn;
-    double rightspeed=speed+turn;
+    double leftspeed=speed+turn;
+    double rightspeed=speed-turn;
     driveTrain.tankDrive(leftspeed, rightspeed);
     SmartDashboard.putNumber("joystick x", joystick.getX());
     SmartDashboard.putNumber("joystick y", joystick.getY());
