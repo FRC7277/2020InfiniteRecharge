@@ -6,26 +6,32 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
-
-import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+
+import frc.robot.Robot;
+import frc.robot.subsystems.Drivetrain;
+
+import frc.robot.commands.Joystickdrive;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class ExampleCommand extends CommandBase {
+public class Joystickdrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final ExampleSubsystem m_subsystem;
+  Joystick joy;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ExampleCommand(ExampleSubsystem subsystem) {
-    m_subsystem = subsystem;
+  public Joystickdrive(Joystick joy) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(Robot.drivetrain);
+
+    this.joy = joy;
   }
 
   // Called when the command is initially scheduled.
@@ -36,11 +42,16 @@ public class ExampleCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    Robot.drivetrain.Tankdrive(this.joy);
+
+    SmartDashboard.putString("Drive X:", Double.toString(this.joy.getX()));
+    SmartDashboard.putString("Drive Y:", Double.toString(this.joy.getY()));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    Robot.drivetrain.getDrive().tankDrive(0, 0);
   }
 
   // Returns true when the command should end.

@@ -10,11 +10,13 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.TimedRobot;
+
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import frc.robot.subsystems.Drivetrain;
 
 
 
@@ -29,12 +31,10 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
   //creating the motor controllers so we can move
-  private WPI_TalonSRX leftMotor=new WPI_TalonSRX(1);
-  private WPI_TalonSRX rightMotor=new WPI_TalonSRX(2);
   //i dint know what this does but the examples do it so ya
-  private DifferentialDrive driveTrain= new DifferentialDrive(leftMotor, rightMotor);
   // inputs
-  private Joystick joystick=new Joystick(0);
+  public static RobotContainer robotcontainer = new RobotContainer();
+  public static Drivetrain drivetrain = new Drivetrain();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -77,15 +77,15 @@ public class Robot extends TimedRobot {
   /**
    * This autonomous runs the autonomous command selected by your {@link RobotContainer} class.
    */
-  @Override
-  public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+  //@Override
+  //public void autonomousInit() {
+    
 
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-    }
-  }
+    //if (m_autonomousCommand != null) {
+     // m_autonomousCommand.schedule();
+    //}
+  //}
 
   /**
    * This function is called periodically during autonomous.
@@ -110,14 +110,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    double turn=joystick.getX()/5;
-    double speed=joystick.getY();
-    double leftspeed=speed+turn;
-    double rightspeed=speed-turn;
-    driveTrain.tankDrive(leftspeed, rightspeed);
-    SmartDashboard.putNumber("joystick x", joystick.getX());
-    SmartDashboard.putNumber("joystick y", joystick.getY());
-
+    CommandScheduler.getInstance().run();
   }
 
   @Override
@@ -131,5 +124,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+    
   }
 }
