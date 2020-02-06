@@ -1,4 +1,4 @@
-
+@ -0,0 +1,44 @@
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -13,11 +13,9 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import frc.robot.commands.Joystickdrive;
 
 import frc.robot.Robot;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 
 
 public class Drivetrain extends SubsystemBase {
@@ -37,23 +35,11 @@ public class Drivetrain extends SubsystemBase {
       this.joy=joy;
   }
   public Drivetrain(){
-    this(Constants.leftmotor, Constants.rightmotor, Robot.robotcontainer.getJoystick());
+    this(Constants.leftmotor, Constants.rightmotor, Constants.joystick);
   }
   
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    setDefaultCommand(new Joystickdrive(this.joy));
   }
-  public DifferentialDrive getDrive() {
-    return this.diffdrive;
-  }
-  public void Tankdrive(Joystick joy){
-    double turn=joy.getX()/5;
-    double speed=joy.getY();
-    double leftspeed=speed+turn;
-    double rightspeed=speed-turn;
-    diffdrive.tankDrive(leftspeed, rightspeed);
-  }
-
 }
