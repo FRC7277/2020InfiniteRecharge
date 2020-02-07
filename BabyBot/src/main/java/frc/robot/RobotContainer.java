@@ -10,7 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.commands.JoystickDrive;
+import frc.robot.subsystems.Drivetrain;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -20,7 +21,8 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final Joystick joystick = new Joystick(Constants.joystick);
+  private final Drivetrain driveTrain = new Drivetrain();
+  private final JoystickDrive joystickDrive= new JoystickDrive(driveTrain);
 
 
 
@@ -47,11 +49,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public void getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    
-  }
-  public Joystick getJoystick() {
-    return this.joystick;
+  public Command getCommand() {
+      // An ExampleCommand will run ipublicn autonomous
+      return joystickDrive;
   }
 }

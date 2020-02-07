@@ -9,29 +9,25 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.Drivetrain;
-
-import frc.robot.commands.Joystickdrive;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class Joystickdrive extends CommandBase {
+public class JoystickDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  Joystick joy;
+  Joystick joy=Constants.joystick;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public Joystickdrive(Joystick joy) {
+  public JoystickDrive(Drivetrain driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.drivetrain);
-
-    this.joy = joy;
+    addRequirements(driveTrain);    
   }
 
   // Called when the command is initially scheduled.
@@ -42,10 +38,10 @@ public class Joystickdrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Robot.drivetrain.Tankdrive(this.joy);
+    Robot.drivetrain.Turndrive(joy.getX(),joy.getY());
 
-    SmartDashboard.putString("Drive X:", Double.toString(this.joy.getX()));
-    SmartDashboard.putString("Drive Y:", Double.toString(this.joy.getY()));
+    SmartDashboard.putString("Joy X:", Double.toString(this.joy.getX()));
+    SmartDashboard.putString("Joy Y:", Double.toString(this.joy.getY()));
   }
 
   // Called once the command ends or is interrupted.

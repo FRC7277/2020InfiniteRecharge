@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
@@ -18,5 +20,5 @@ package frc.robot;
 public final class Constants {
     public static final int leftmotor=1;
     public static final int rightmotor=2;
-    public static final int joystick=0;
+    public static final Joystick joystick=new Joystick(0);
 }

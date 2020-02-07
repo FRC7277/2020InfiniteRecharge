@@ -8,52 +8,43 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.smartdashboard.*;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import frc.robot.commands.Joystickdrive;
 
-import frc.robot.Robot;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 
 
 public class Drivetrain extends SubsystemBase {
   /**
    * Creates a new ExampleSubsystem.
    */
-  private WPI_TalonSRX leftmotor;
-  private WPI_TalonSRX rightmotor;
+  private WPI_TalonSRX leftmotor, rightmotor;
   private DifferentialDrive diffdrive;
-  private Joystick joy;
 
-
-  public Drivetrain(int left, int right, Joystick joy) {
+  public Drivetrain(int left, int right) {
       this.leftmotor=new WPI_TalonSRX(left);
       this.rightmotor=new WPI_TalonSRX(right);
       this.diffdrive = new DifferentialDrive(leftmotor, rightmotor);
-      this.joy=joy;
   }
   public Drivetrain(){
-    this(Constants.leftmotor, Constants.rightmotor, Robot.robotcontainer.getJoystick());
+    this(Constants.leftmotor, Constants.rightmotor);
   }
   
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    setDefaultCommand(new Joystickdrive(this.joy));
   }
   public DifferentialDrive getDrive() {
     return this.diffdrive;
   }
-  public void Tankdrive(Joystick joy){
-    double turn=joy.getX()/5;
-    double speed=joy.getY();
-    double leftspeed=speed+turn;
-    double rightspeed=speed-turn;
-    diffdrive.tankDrive(leftspeed, rightspeed);
+  public void Tankdrive(double leftPower, double rightPower){
+    diffdrive.tankDrive(leftPower, rightPower);
+  }
+  public void Turndrive(double speed, double turn){
+    double leftPower=speed+turn;
+    double rightPower=speed-turn;
+    diffdrive.tankDrive(leftPower, rightPower);
   }
 
 }

@@ -7,15 +7,9 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PWMTalonSRX;
 import edu.wpi.first.wpilibj.TimedRobot;
-
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj.smartdashboard.*;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.subsystems.Drivetrain;
 
 
@@ -28,7 +22,7 @@ import frc.robot.subsystems.Drivetrain;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-
+  //this holds the subsystems/controls for the robot
   private RobotContainer m_robotContainer;
   //creating the motor controllers so we can move
   //i dint know what this does but the examples do it so ya
