@@ -45,7 +45,17 @@ public class Drivetrain extends SubsystemBase {
   public void tankdrive(double leftPower, double rightPower){
     diffdrive.tankDrive(leftPower, rightPower);
   }
+  public void NoTurn(double speed, double turn){
+    double leftPower=speed;
+    double rightPower=speed;
+    diffdrive.tankDrive(leftPower, rightPower);
+  }
+  /*public void QuarterTurn(double speed, double turn){
+    double leftPower=speed+turn;
+    double rightpower=speed-turn;
+  }*/
   public void turndrive(double speed, double turn){
+
     double leftPower=speed+turn;
     double rightPower=speed-turn;
     diffdrive.tankDrive(leftPower, rightPower);
