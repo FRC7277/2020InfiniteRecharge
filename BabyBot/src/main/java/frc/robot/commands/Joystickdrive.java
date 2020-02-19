@@ -32,14 +32,18 @@ public class JoystickDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    //driving the drivetrain through its drivestick
     RobotContainer.drivetrain.turndrive(joystick.getX(),joystick.getZ());
-
-    SmartDashboard.putString("JoystickDrive:","updating");
+    //letting us know that this is running 
+    SmartDashboard.putString("JoystickDrive:","running");
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    //letting us know that this command has been canceled
+    SmartDashboard.putString("JoystickDrive:","stopped");
+    //setting the motors power to 0 so it wont keep on going because that would be bad
     RobotContainer.drivetrain.turndrive(0,0);
   }
 

@@ -41,6 +41,8 @@ public class Drivetrain extends SubsystemBase {
   }
   public void tankdrive(double leftPower, double rightPower){
     SmartDashboard.putString("Drive mode:", "tank drive");
+    SmartDashboard.putNumber("leftPower:",leftPower);
+    SmartDashboard.putNumber("rightPower", rightPower);
     diffdrive.tankDrive(leftPower, rightPower);
   }
   public void NoTurn(double speed, double turn){
@@ -56,6 +58,8 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putString("Drive mode:", "turn drive");
     double leftPower=speed+turn;
     double rightPower=speed-turn;
+    SmartDashboard.putNumber("leftPower", leftPower);
+    SmartDashboard.putNumber("rightPower", rightPower);
     diffdrive.tankDrive(leftPower, rightPower);
   }
   public void initDefaultCommand(){
