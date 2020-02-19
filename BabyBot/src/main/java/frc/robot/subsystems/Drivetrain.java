@@ -14,18 +14,22 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.JoystickDrive;
+import edu.wpi.first.wpilibj.Joystick;
 
 
 public class Drivetrain extends SubsystemBase {
   //creating motors
   private WPI_TalonSRX leftmotor, rightmotor;
   private DifferentialDrive diffdrive;
+  private Joystick joy;
+  
 
   public Drivetrain(int left, int right) {
       this.leftmotor=new WPI_TalonSRX(left);
       this.rightmotor=new WPI_TalonSRX(right);
       this.diffdrive = new DifferentialDrive(leftmotor, rightmotor);
       setDefaultCommand(new JoystickDrive());
+      this.joy=joy;
   }
   public Drivetrain(){
     this(Constants.leftmotor, Constants.rightmotor);
@@ -46,5 +50,7 @@ public class Drivetrain extends SubsystemBase {
     double rightPower=speed-turn;
     diffdrive.tankDrive(leftPower, rightPower);
   }
-
+  public void initDefaultCommand(){
+    setDefaultCommand(new JoystickDrive());
+  }
 }

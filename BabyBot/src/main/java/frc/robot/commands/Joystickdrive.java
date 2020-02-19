@@ -10,9 +10,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Drivetrain;
 
 /**
  * An example command that uses an example subsystem.
@@ -34,16 +32,16 @@ public class JoystickDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.drivetrain.Turndrive(joystick.getX(),joystick.getY());
+    RobotContainer.drivetrain.turndrive(joystick.getX(),joystick.getZ());
 
-    SmartDashboard.putString("Joy X:", Double.toString(this.joy.getX()));
-    SmartDashboard.putString("Joy Y:", Double.toString(this.joy.getY()));
+    SmartDashboard.putString("Joy X:", Double.toString(this.joystick.getX()));
+    SmartDashboard.putString("Joy Y:", Double.toString(this.joystick.getZ()));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.drivetrain.Turndrive(joystick.getX(),joystick.getY());
+    RobotContainer.drivetrain.turndrive(0,0);
   }
 
   // Returns true when the command should end.
