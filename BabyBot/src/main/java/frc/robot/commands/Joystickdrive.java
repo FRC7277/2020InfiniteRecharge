@@ -34,8 +34,7 @@ public class JoystickDrive extends CommandBase {
   public void execute() {
     RobotContainer.drivetrain.turndrive(joystick.getX(),joystick.getZ());
 
-    SmartDashboard.putString("Joy X:", Double.toString(this.joystick.getX()));
-    SmartDashboard.putString("Joy Y:", Double.toString(this.joystick.getZ()));
+    SmartDashboard.putString("JoystickDrive:","updating");
   }
 
   // Called once the command ends or is interrupted.

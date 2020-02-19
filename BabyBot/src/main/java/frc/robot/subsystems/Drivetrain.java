@@ -11,25 +11,22 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.JoystickDrive;
-import edu.wpi.first.wpilibj.Joystick;
 
 
 public class Drivetrain extends SubsystemBase {
   //creating motors
   private WPI_TalonSRX leftmotor, rightmotor;
-  private DifferentialDrive diffdrive;
-  private Joystick joy;
-  
+  private DifferentialDrive diffdrive;  
 
   public Drivetrain(int left, int right) {
       this.leftmotor=new WPI_TalonSRX(left);
       this.rightmotor=new WPI_TalonSRX(right);
       this.diffdrive = new DifferentialDrive(leftmotor, rightmotor);
       setDefaultCommand(new JoystickDrive());
-      this.joy=joy;
   }
   public Drivetrain(){
     this(Constants.leftmotor, Constants.rightmotor);
@@ -43,6 +40,7 @@ public class Drivetrain extends SubsystemBase {
     return this.diffdrive;
   }
   public void tankdrive(double leftPower, double rightPower){
+    SmartDashboard.putString("Drive mode:", "tank drive");
     diffdrive.tankDrive(leftPower, rightPower);
   }
   public void NoTurn(double speed, double turn){
@@ -55,7 +53,7 @@ public class Drivetrain extends SubsystemBase {
     double rightpower=speed-turn;
   }*/
   public void turndrive(double speed, double turn){
-
+    SmartDashboard.putString("Drive mode:", "turn drive");
     double leftPower=speed+turn;
     double rightPower=speed-turn;
     diffdrive.tankDrive(leftPower, rightPower);
