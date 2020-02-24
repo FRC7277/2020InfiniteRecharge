@@ -2,10 +2,9 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DMC60;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.JoystickDrive;
 
 public class Lift extends SubsystemBase {
     private DMC60 motorL;
@@ -17,12 +16,19 @@ public class Lift extends SubsystemBase {
     public Lift(){
         this(Constants.liftMotorPortL, Constants.liftMotorPortR);
     }
+    private void updateDashBoard(){
+        SmartDashboard.putNumber("leftLiftPosition:", motorL.getPosition());
+        SmartDashboard.putNumber("rightLiftPosition:", motorR.getPosition());
+    }
     public void move(int speed){
         motorR.set(speed);
         motorL.set(speed);
+        updateDashBoard();
+        
     }
     public void setPosition(double position){
         motorR.setPosition(position);
         motorL.setPosition(position);
+        updateDashBoard();
     }
 }

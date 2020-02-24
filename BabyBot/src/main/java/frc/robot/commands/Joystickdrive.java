@@ -21,9 +21,13 @@ public class JoystickDrive extends CommandBase {
   public JoystickDrive() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.drivetrain);
-    
   }
+  private void movelift(){
+    if(joystick.g){
 
+    }
+  }
+  //start of overriden commands from command base
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -34,6 +38,7 @@ public class JoystickDrive extends CommandBase {
   public void execute() {
     //driving the drivetrain through its drivestick
     RobotContainer.drivetrain.turndrive(joystick.getX(),joystick.getZ());
+
     //letting us know that this is running 
     SmartDashboard.putString("JoystickDrive:","running");
   }
