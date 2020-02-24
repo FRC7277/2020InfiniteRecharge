@@ -20,5 +20,7 @@ import edu.wpi.first.wpilibj.Joystick;
 public final class Constants {
     public static final int leftmotor=1;
     public static final int rightmotor=2;
+    public static final int liftMotorPortL=0;
+    public static final int liftMotorPortR=1;
     public static final Joystick joystick=new Joystick(0);
 }
