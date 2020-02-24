@@ -23,9 +23,11 @@ public class JoystickDrive extends CommandBase {
     addRequirements(RobotContainer.drivetrain);
   }
   private void movelift(){
-    if(joystick.g){
-
-    }
+    if(joystick.getRawButton(5)||joystick.getRawButton(6)){
+      RobotContainer.lift.move(1);
+    }else if(joystick.getRawButton(3)||joystick.getRawButton(4)){ 
+      RobotContainer.lift.move(-1);
+    }   
   }
   //start of overriden commands from command base
   // Called when the command is initially scheduled.
@@ -38,7 +40,7 @@ public class JoystickDrive extends CommandBase {
   public void execute() {
     //driving the drivetrain through its drivestick
     RobotContainer.drivetrain.turndrive(joystick.getX(),joystick.getZ());
-
+    movelift();
     //letting us know that this is running 
     SmartDashboard.putString("JoystickDrive:","running");
   }
@@ -50,6 +52,7 @@ public class JoystickDrive extends CommandBase {
     SmartDashboard.putString("JoystickDrive:","stopped");
     //setting the motors power to 0 so it wont keep on going because that would be bad
     RobotContainer.drivetrain.turndrive(0,0);
+    RobotContainer.lift.move(0);
   }
 
   // Returns true when the command should end.
