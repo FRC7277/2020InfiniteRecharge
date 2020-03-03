@@ -33,7 +33,7 @@ public class JoystickDrive extends CommandBase {
   @Override
   public void execute() {
     //driving the drivetrain through its drivestick
-    RobotContainer.drivetrain.turndrive(joystick.getX(),joystick.getZ());
+    RobotContainer.drivetrain.turndrive(joystick.getY(),joystick.getZ());
     //letting us know that this is running 
     SmartDashboard.putString("JoystickDrive:","running");
   }

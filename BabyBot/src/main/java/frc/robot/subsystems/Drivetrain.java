@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -19,17 +20,21 @@ import frc.robot.commands.JoystickDrive;
 
 public class Drivetrain extends SubsystemBase {
   //creating motors
-  private WPI_TalonSRX leftmotor, rightmotor;
+  private WPI_TalonSRX leftMotor1, leftMotor2, rightMotor1, rightMotor2;
+  private SpeedControllerGroup left, right;
   private DifferentialDrive diffdrive;  
 
-  public Drivetrain(int left, int right) {
-      this.leftmotor=new WPI_TalonSRX(left);
-      this.rightmotor=new WPI_TalonSRX(right);
-      this.diffdrive = new DifferentialDrive(leftmotor, rightmotor);
-      setDefaultCommand(new JoystickDrive());
+  public Drivetrain(int left1, int left2, int right1, int right2) {
+      this.leftMotor1=new WPI_TalonSRX(left1);
+      this.leftMotor2=new WPI_TalonSRX(left2);
+      this.rightMotor1=new WPI_TalonSRX(right1);
+      this.rightMotor2=new WPI_TalonSRX(right2);
+      this.left=new SpeedControllerGroup(leftMotor1, leftMotor2);
+      this.right=new SpeedControllerGroup(rightMotor1, rightMotor2);
+      this.diffdrive = new DifferentialDrive(left, right);
   }
   public Drivetrain(){
-    this(Constants.leftmotor, Constants.rightmotor);
+    this(Constants.leftmotor1,Constants.leftmotor2, Constants.rightmotor1,Constants.rightmotor2);
   }
   
   @Override
