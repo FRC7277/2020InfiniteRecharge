@@ -20,9 +20,9 @@ public class Lift extends SubsystemBase {
         SmartDashboard.putNumber("leftLiftPosition:", motorL.getPosition());
         SmartDashboard.putNumber("rightLiftPosition:", motorR.getPosition());
     }
-    public void move(int speed){
+    public void move(double speed){
         motorR.set(speed);
-        motorL.set(speed);
+        motorL.set(-speed);
         updateDashBoard();
         
     }

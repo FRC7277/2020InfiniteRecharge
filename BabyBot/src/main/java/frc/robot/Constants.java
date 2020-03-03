@@ -18,8 +18,10 @@ import edu.wpi.first.wpilibj.Joystick;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final int leftmotor=1;
-    public static final int rightmotor=2;
+    public static final int leftMotor1=1;
+    public static final int leftMotor2=2;
+    public static final int rightMotor1=3;
+    public static final int rightMotor2=4;
     public static final int liftMotorPortL=0;
     public static final int liftMotorPortR=1;
     public static final Joystick joystick=new Joystick(0);
