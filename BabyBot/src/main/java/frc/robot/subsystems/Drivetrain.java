@@ -15,14 +15,14 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.JoystickDrive;
 
 
 public class Drivetrain extends SubsystemBase {
   //creating motors
   private WPI_TalonSRX leftMotor1, leftMotor2, rightMotor1, rightMotor2;
   private SpeedControllerGroup left, right;
-  private DifferentialDrive diffdrive;  
+  private DifferentialDrive diffdrive; 
+  private boolean flipped=false; 
 
   public Drivetrain(int left1, int left2, int right1, int right2) {
       this.leftMotor1=new WPI_TalonSRX(left1);
@@ -44,27 +44,32 @@ public class Drivetrain extends SubsystemBase {
   public DifferentialDrive getDrive() {
     return this.diffdrive;
   }
-  public void tankdrive(double leftPower, double rightPower){
-    SmartDashboard.putString("Drive mode:", "tank drive");
+  public void tankDrive(double leftPower, double rightPower){
     SmartDashboard.putNumber("leftPower:",leftPower);
     SmartDashboard.putNumber("rightPower", rightPower);
-    diffdrive.tankDrive(leftPower, rightPower);
+    SmartDashboard.putBoolean("facing forward:", flipped);
+    if(flipped){
+      diffdrive.tankDrive(-leftPower, -rightPower);
+    }else{
+      diffdrive.tankDrive(leftPower, rightPower);
+    }
   }
   public void NoTurn(double speed, double turn){
     double leftPower=speed;
     double rightPower=speed;
-    diffdrive.tankDrive(leftPower, rightPower);
+    tankDrive(leftPower, rightPower);
   }
   /*public void QuarterTurn(double speed, double turn){
     double leftPower=speed+turn;
     double rightpower=speed-turn;
   }*/
-  public void turndrive(double speed, double turn){
-    SmartDashboard.putString("Drive mode:", "turn drive");
+  public void turnDrive(double speed, double turn){
     double leftPower=speed+turn;
     double rightPower=speed-turn;
-    SmartDashboard.putNumber("leftPower", leftPower);
-    SmartDashboard.putNumber("rightPower", rightPower);
-    diffdrive.tankDrive(leftPower, rightPower);
+      tankDrive(leftPower, rightPower);   
+  }
+  public void flip(){
+    flipped=!flipped;
+    
   }
 }

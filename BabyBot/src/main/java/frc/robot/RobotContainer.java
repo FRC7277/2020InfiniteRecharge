@@ -22,7 +22,7 @@ import frc.robot.subsystems.Lift;
  */
 public class RobotContainer {
 // The robot's subsystems and commands are defined here...
-  public static final Drivetrain drivetrain = new Drivetrain();
+  public static final Drivetrain driveTrain = new Drivetrain();
   public static final Lift lift = new Lift();
   public static final JoystickDrive joystickDrive= new JoystickDrive();
   
@@ -35,7 +35,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    drivetrain.setDefaultCommand(joystickDrive);
+    driveTrain.setDefaultCommand(joystickDrive);
     lift.setDefaultCommand(joystickDrive);
   }
 

@@ -20,7 +20,7 @@ public class JoystickDrive extends CommandBase {
 
   public JoystickDrive() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.drivetrain);
+    addRequirements(RobotContainer.driveTrain);
     addRequirements(RobotContainer.lift);
   }
   private void movelift(){
@@ -44,8 +44,12 @@ public class JoystickDrive extends CommandBase {
   @Override
   public void execute() {
     //driving the drivetrain through its drivestick
-    RobotContainer.drivetrain.turndrive(joystick.getY(),joystick.getZ()/1.5);
+    RobotContainer.driveTrain.turnDrive(joystick.getY(),joystick.getZ()/1.5);
+    SmartDashboard.putString("Drive mode:", "turn drive");
     movelift();
+    if(joystick.getRawButton(11)){
+      RobotContainer.driveTrain.flip();
+    }
     //letting us know that this is running 
     SmartDashboard.putString("JoystickDrive:","running");
   }
@@ -56,7 +60,7 @@ public class JoystickDrive extends CommandBase {
     //letting us know that this command has been canceled
     SmartDashboard.putString("JoystickDrive:","stopped");
     //setting the motors power to 0 so it wont keep on going because that would be bad
-    RobotContainer.drivetrain.turndrive(0,0);
+    RobotContainer.driveTrain.turnDrive(0,0);
     RobotContainer.lift.move(0);
   }
 
