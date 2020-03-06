@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.JoystickDrive;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Lift;
 
 /**
@@ -22,7 +22,7 @@ import frc.robot.subsystems.Lift;
  */
 public class RobotContainer {
 // The robot's subsystems and commands are defined here...
-  public static final Drivetrain driveTrain = new Drivetrain();
+  public static final DriveTrain driveTrain = new DriveTrain();
   public static final Lift lift = new Lift();
   public static final JoystickDrive joystickDrive= new JoystickDrive();
   

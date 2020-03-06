@@ -17,6 +17,8 @@ import frc.robot.RobotContainer;
  */
 public class JoystickDrive extends CommandBase {
   Joystick joystick = Constants.joystick;
+  Button turboButton= new Button(12), flipButton=new Button(11);
+  boolean turbo=false;
 
   public JoystickDrive() {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -44,21 +46,30 @@ public class JoystickDrive extends CommandBase {
   @Override
   public void execute() {
     //driving the drivetrain through its drivestick
-    RobotContainer.driveTrain.turnDrive(joystick.getY(),joystick.getZ()/1.5);
-    SmartDashboard.putString("Drive mode:", "turn drive");
+    if(turbo){
+      RobotContainer.driveTrain.turnDrive(joystick.getY(),joystick.getZ());
+    }
+    else{
+      RobotContainer.driveTrain.turnDrive(joystick.getY(),joystick.getZ()/1.75);
+    }
+    SmartDashboard.putString("drive mode", "turn drive");
+    SmartDashboard.putNumber("joystick y", joystick.getY());
+    SmartDashboard.putNumber("joystick z", joystick.getZ());
+    SmartDashboard.putBoolean("speedy mode", turbo);
     movelift();
-    if(joystick.getRawButton(11)){
+
+    if(turboButton.pushed()){
+      turbo = !turbo;
+    }
+    
+    if(flipButton.pushed()){
       RobotContainer.driveTrain.flip();
     }
-    //letting us know that this is running 
-    SmartDashboard.putString("JoystickDrive:","running");
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    //letting us know that this command has been canceled
-    SmartDashboard.putString("JoystickDrive:","stopped");
     //setting the motors power to 0 so it wont keep on going because that would be bad
     RobotContainer.driveTrain.turnDrive(0,0);
     RobotContainer.lift.move(0);

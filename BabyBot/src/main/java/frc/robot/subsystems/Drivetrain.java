@@ -17,14 +17,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 
-public class Drivetrain extends SubsystemBase {
+public class DriveTrain extends SubsystemBase {
   //creating motors
   private WPI_TalonSRX leftMotor1, leftMotor2, rightMotor1, rightMotor2;
   private SpeedControllerGroup left, right;
   private DifferentialDrive diffdrive; 
   private boolean flipped=false; 
 
-  public Drivetrain(int left1, int left2, int right1, int right2) {
+  public DriveTrain(int left1, int left2, int right1, int right2) {
       this.leftMotor1=new WPI_TalonSRX(left1);
       this.leftMotor2=new WPI_TalonSRX(left2);
       this.rightMotor1=new WPI_TalonSRX(right1);
@@ -33,7 +33,7 @@ public class Drivetrain extends SubsystemBase {
       this.right=new SpeedControllerGroup(rightMotor1, rightMotor2);
       this.diffdrive = new DifferentialDrive(left, right);
   }
-  public Drivetrain(){
+  public DriveTrain(){
     this(Constants.leftMotor1,Constants.leftMotor2, Constants.rightMotor1,Constants.rightMotor2);
   }
   
@@ -47,7 +47,8 @@ public class Drivetrain extends SubsystemBase {
   public void tankDrive(double leftPower, double rightPower){
     SmartDashboard.putNumber("leftPower:",leftPower);
     SmartDashboard.putNumber("rightPower", rightPower);
-    SmartDashboard.putBoolean("facing forward:", flipped);
+    SmartDashboard.putBoolean("flipped controls:", flipped);
+    
     if(flipped){
       diffdrive.tankDrive(-leftPower, -rightPower);
     }else{
@@ -64,12 +65,15 @@ public class Drivetrain extends SubsystemBase {
     double rightpower=speed-turn;
   }*/
   public void turnDrive(double speed, double turn){
+    if(flipped){
+      turn=-turn;
+    }
     double leftPower=speed+turn;
     double rightPower=speed-turn;
-      tankDrive(leftPower, rightPower);   
+    tankDrive(leftPower, rightPower);
   }
+
   public void flip(){
-    flipped=!flipped;
-    
+  flipped =  !flipped;
   }
 }
