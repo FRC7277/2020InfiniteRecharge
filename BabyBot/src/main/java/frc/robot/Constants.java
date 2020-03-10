@@ -22,7 +22,7 @@ public final class Constants {
     public static final int leftMotor2=2;
     public static final int rightMotor1=3;
     public static final int rightMotor2=4;
-    public static final int liftMotorPortL=0;
-    public static final int liftMotorPortR=1;
+    public static final int liftMotorPortL=8;
+    public static final int liftMotorPortR=7;
     public static final Joystick joystick=new Joystick(0);
 }

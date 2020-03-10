@@ -1,34 +1,37 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DMC60;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Lift extends SubsystemBase {
-    private DMC60 motorL;
-    private DMC60 motorR;
+    private VictorSPX motorL;
+    private VictorSPX motorR;
     public Lift(int leftMotor, int rightMotor){
-        motorL=new DMC60(leftMotor);
-        motorR=new DMC60(rightMotor);
+        motorL=new VictorSPX(leftMotor);
+        motorR=new VictorSPX(rightMotor);
     }
     public Lift(){
         this(Constants.liftMotorPortL, Constants.liftMotorPortR);
     }
-    private void updateDashBoard(){
-        SmartDashboard.putNumber("leftLiftPosition:", motorL.getPosition());
-        SmartDashboard.putNumber("rightLiftPosition:", motorR.getPosition());
-    }
+    
     public void move(double speed){
-        motorR.set(speed);
-        motorL.set(-speed);
-        updateDashBoard();
-        
-    }
-    public void setPosition(double position){
-        motorR.setPosition(position);
-        motorL.setPosition(position);
-        updateDashBoard();
-    }
+        motorR.set(ControlMode.PercentOutput,speed);
+        motorL.set(ControlMode.PercentOutput,-speed); 
+        SmartDashboard.putNumber("rightLiftPower", speed); 
+        SmartDashboard.putNumber("leftLiftPower", -speed); 
+
+    } 
+    public void moveLeft(double speed){
+        motorL.set(ControlMode.PercentOutput,speed);
+        SmartDashboard.putNumber("leftLiftPower", -speed);   
+    } 
+    public void moveRight(double speed){
+        motorR.set(ControlMode.PercentOutput,-speed);
+        SmartDashboard.putNumber("rightLiftPower", speed); 
+    } 
 }

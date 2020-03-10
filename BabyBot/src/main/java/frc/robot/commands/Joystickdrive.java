@@ -19,6 +19,7 @@ public class JoystickDrive extends CommandBase {
   Joystick joystick = Constants.joystick;
   Button turboButton= new Button(12), flipButton=new Button(11);
   boolean turbo=false;
+  
 
   public JoystickDrive() {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -27,12 +28,14 @@ public class JoystickDrive extends CommandBase {
   }
   private void movelift(){
     if(joystick.getRawButton(5)||joystick.getRawButton(6)){
-      RobotContainer.lift.move(0.5);
-      
+      RobotContainer.lift.move(40);
     }else if(joystick.getRawButton(3)||joystick.getRawButton(4)){ 
-      RobotContainer.lift.move(-0.5);
-    }
-    else{
+      RobotContainer.lift.move(-40);
+    }else if(joystick.getRawButton(7)){
+      RobotContainer.lift.moveLeft(20);
+    }else if(joystick.getRawButton(8)){
+      RobotContainer.lift.moveRight(20);
+    }else{
       RobotContainer.lift.move(0);
     }   
   }
@@ -61,7 +64,6 @@ public class JoystickDrive extends CommandBase {
     if(turboButton.pushed()){
       turbo = !turbo;
     }
-    
     if(flipButton.pushed()){
       RobotContainer.driveTrain.flip();
     }

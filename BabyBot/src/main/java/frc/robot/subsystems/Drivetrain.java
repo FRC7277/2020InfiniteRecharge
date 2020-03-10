@@ -18,22 +18,23 @@ import frc.robot.Constants;
 
 
 public class DriveTrain extends SubsystemBase {
-  //creating motors
+  // creating motors
   private WPI_TalonSRX leftMotor1, leftMotor2, rightMotor1, rightMotor2;
   private SpeedControllerGroup left, right;
-  private DifferentialDrive diffdrive; 
-  private boolean flipped=false; 
+  private DifferentialDrive diffdrive;
+  private boolean flip=false;
 
   public DriveTrain(int left1, int left2, int right1, int right2) {
-      this.leftMotor1=new WPI_TalonSRX(left1);
-      this.leftMotor2=new WPI_TalonSRX(left2);
-      this.rightMotor1=new WPI_TalonSRX(right1);
-      this.rightMotor2=new WPI_TalonSRX(right2);
-      this.left=new SpeedControllerGroup(leftMotor1, leftMotor2);
-      this.right=new SpeedControllerGroup(rightMotor1, rightMotor2);
-      this.diffdrive = new DifferentialDrive(left, right);
+    this.leftMotor1 = new WPI_TalonSRX(left1);
+    this.leftMotor2 = new WPI_TalonSRX(left2);
+    this.rightMotor1 = new WPI_TalonSRX(right1);
+    this.rightMotor2 = new WPI_TalonSRX(right2);
+    this.left = new SpeedControllerGroup(leftMotor1, leftMotor2);
+    this.right = new SpeedControllerGroup(rightMotor1, rightMotor2);
+    this.diffdrive = new DifferentialDrive(left, right);
   }
-  public DriveTrain(){
+
+  public DriveTrain() {
     this(Constants.leftMotor1,Constants.leftMotor2, Constants.rightMotor1,Constants.rightMotor2);
   }
   
@@ -45,11 +46,10 @@ public class DriveTrain extends SubsystemBase {
     return this.diffdrive;
   }
   public void tankDrive(double leftPower, double rightPower){
-    SmartDashboard.putNumber("leftPower:",leftPower);
+    SmartDashboard.putNumber("leftPower",leftPower);
     SmartDashboard.putNumber("rightPower", rightPower);
-    SmartDashboard.putBoolean("flipped controls:", flipped);
-    
-    if(flipped){
+    SmartDashboard.putBoolean("Flipped controls", flip);
+    if(flip){
       diffdrive.tankDrive(-leftPower, -rightPower);
     }else{
       diffdrive.tankDrive(leftPower, rightPower);
@@ -65,15 +65,14 @@ public class DriveTrain extends SubsystemBase {
     double rightpower=speed-turn;
   }*/
   public void turnDrive(double speed, double turn){
-    if(flipped){
+    if(flip){
       turn=-turn;
     }
     double leftPower=speed+turn;
     double rightPower=speed-turn;
     tankDrive(leftPower, rightPower);
   }
-
   public void flip(){
-  flipped =  !flipped;
+    flip = !flip;
   }
 }
